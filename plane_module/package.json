@@ -1,0 +1,8 @@
+{
+    "main": "index.js",
+    "name": "planes-generator",
+    "version": "0.1.0",
+    "dependencies": {
+        "simple-hashtable": "1.0.0"
+    }
+}
