@@ -1,0 +1,28 @@
+apiVersion: "nuclio.io/v1"
+kind: Function
+metadata: 
+  name: mqtt-tireconsumer
+  namespace: nuclio
+spec:
+  handler: "main:handler"
+  description: "Function that receives data from sensors of incoming planes and dispathces messages on other topics"
+  runtime: nodejs
+  image: "nuclio/mqtt-tire-consumer:latest"
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPU: 75
+  triggers:
+    myMqttTrigger:
+      kind: "mqtt"
+      url: "user:password@192.168.1.7:1883"
+      attributes:
+        subscriptions:
+        - topic: iot/planes/arrivals/tires
+          qos: 0
+  build:
+    functionSourceCode: dmFyIGFtcXAgPSByZXF1aXJlKCdhbXFwbGliJyk7Ci8vbnBtIHBhY2thZ2UgdG8gbWFuYWdlIGFpcnBsYW5lcyAKdmFyIFBsYW5lID0gcmVxdWlyZSgncGxhbmVzLWdlbmVyYXRvcicpOwoKLy8gVGhpcyBmdW5jdGlvbiBzZW5kcyBtZXNzYWdlcyB0byB0aGUgdGlyZV9sb2dnZXIgb24gdGhlIGFtcXAgdG9waWMgbG9ncy9hcnJpdmFscy90aXJlcwpmdW5jdGlvbiBzZW5kX2ZlZWRiYWNrKG1zZyl7CiAgICB2YXIgcSA9ICdsb2dzL2Fycml2YWxzL3RpcmVzJzsKICAgIGFtcXAuY29ubmVjdCgnYW1xcDovL2d1ZXN0Omd1ZXN0QDE5Mi4xNjguMS43OjU2NzInKS50aGVuKGZ1bmN0aW9uKGNvbm4pIHsKICAgICAgcmV0dXJuIGNvbm4uY3JlYXRlQ2hhbm5lbCgpLnRoZW4oZnVuY3Rpb24oY2gpIHsKICAgICAgICB2YXIgb2sgPSBjaC5hc3NlcnRRdWV1ZShxLCB7ZHVyYWJsZTogZmFsc2V9KTsKICAgICAgICByZXR1cm4gb2sudGhlbihmdW5jdGlvbihfcW9rKSB7CiAgICAgICAgICBjaC5zZW5kVG9RdWV1ZShxLCBCdWZmZXIuZnJvbShtc2cpKTsKICAgICAgICAgIGNvbnNvbGUubG9nKCIgW3hdIFNlbnQgJyVzJyIsIG1zZyk7CiAgICAgICAgICByZXR1cm4gY2guY2xvc2UoKTsKICAgICAgICB9KTsKICAgICAgfSkuZmluYWxseShmdW5jdGlvbigpIHsKICAgICAgICBjb25uLmNsb3NlKCk7CiAgICAgIH0pOwogICAgfSkuY2F0Y2goY29uc29sZS53YXJuKTsKfQoKLy8gVGhpcyBmdW5jdGlvbiBjYXRjaGVzIHRoZSBldmVudCBmcm9tIHRoZSBtcXR0TWVzc2FnZURpc3BhdGNoZXIgZXZlcnkgdGltZSBhIHBsYW5lIGxhbmRzCmV4cG9ydHMuaGFuZGxlciA9IGZ1bmN0aW9uKGNvbnRleHQsIGV2ZW50KSB7CiAgICB2YXIgX2V2ZW50ID0gSlNPTi5wYXJzZShKU09OLnN0cmluZ2lmeShldmVudCkpOwogICAgLy8gcmVjcmVhdGUgdGhlIHBsYW5lIHJlY2VpdmVkIGFzIGV2ZW50CiAgICB2YXIgY3VycmVudFBsYW5lID0gbmV3IFBsYW5lKF9ldmVudC5ib2R5LmRhdGEpOwogIAogICAgY29udGV4dC5jYWxsYmFjaygiZmVlZGJhY2sgIik7CiAgICAKICAgIC8vIHdyaXRlIG9uIHRoZSB0aXJlX2xvZ2dlcgogICAgc2VuZF9mZWVkYmFjayhjdXJyZW50UGxhbmUubW9kZWwgKyAiICIgKyBjdXJyZW50UGxhbmUubmFtZSArICIgaXMgIiArIGN1cnJlbnRQbGFuZS50YWcgKyAiISBNYW50ZWluYW5jZSB1bmRlcmNhcnJpYWdlIG46ICIgKyBjdXJyZW50UGxhbmUudW5kZXJjYXJyaWFnZXNJc3N1ZSArICIhIFByZXNzdXJlIGRyb3AgZGV0ZWN0ZWQgYXQgdGlyZSBuOiAiICsgY3VycmVudFBsYW5lLnRpZXJJc3N1ZSk7CiAgfTs=
+    commands:
+      - 'npm install amqplib'
+      - 'npm i planes-generator'
+    codeEntryType: sourceCode
+  platform: {} 
