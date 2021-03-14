@@ -52,7 +52,7 @@ To make this class available across all Nuclio functions, I published it on my p
 Here the NPM page: [<span style="color:darkorange">**planes-generator**</span>]( https://www.npmjs.com/package/planes-generator)
 
 ## Architecture
-![](/Users/antoniogiulio/Desktop/Università/Serverless computing fo IoT/project/my_project_mark_3/media/architecture.png)
+![](/media/architecture.png)
 
 ## Functions
 The application is composed by 5 functions:
@@ -101,13 +101,13 @@ The Tire Condition Consumer deals with updating the AMQP channel <span style="co
 As we have previously seen we have 4 loggers, each associated with a consumer function and listening on a AMQP dedicated channel:
 
 * **general_logger** listening on <span style="color:blue">`logs/arrivals`</span>
-	![](/Users/antoniogiulio/Desktop/Università/Serverless computing fo IoT/project/my_project_mark_3/media/general.png)
+	![](/media/general.png)
 * **fuel_logger** listening on <span style="color:blue">`logs/arrivals/fuel`</span>
-	![](/Users/antoniogiulio/Desktop/Università/Serverless computing fo IoT/project/my_project_mark_3/media/fuel.png)
+	![](/media/fuel.png)
 * **issuel_logger** listening on <span style="color:blue">`logs/arrivals/issue`</span>
-	![](/Users/antoniogiulio/Desktop/Università/Serverless computing fo IoT/project/my_project_mark_3/media/issue.png)
+	![](/issue.png)
 * **tire_logger** listening on <span style="color:blue">`logs/arrivals/tire`</span>
-	![](/Users/antoniogiulio/Desktop/Università/Serverless computing fo IoT/project/my_project_mark_3/media/tire.png)
+	![](/media/tire.png)
 
 ## IFTTT
 Once the system described above was implemented and tested, I decided to add a WebHook through the use of IFTTT.
