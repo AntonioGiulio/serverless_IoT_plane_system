@@ -2,7 +2,7 @@
 ### Serverless Computing for IoT
 
 ## Introduction
-The IoT industry is revolutionizing the **Aerospace and Defense (A&D)** sector, over **91.5 billion dollars** were invested last year. 
+The IoT industry is revolutionizing the **Aerospace and Defence (A&D)** sector, over **91.5 billion dollars** were invested last year. 
 The application of IoT devices in aviation, such as small sensors and actuators, improve their efficiency, safety, control and costs.
 
 Pilots and eventually AI support for the autoflight system need a constant data provisioning from sensors in different part of the plane, like wings for lifting and fuel level, from engines, from tires, from hold, also informations about external and internal pressure and temperature.
