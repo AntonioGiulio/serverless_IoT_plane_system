@@ -147,6 +147,19 @@ To integrate these applet in my code I have exploited the **NPM** package **`ift
                                      date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear(),
                                       (date.getHours()+1) + ":" + date.getMinutes()]);
 ```
-             
+
+## How to Run
+1. Install **Docker** and **Docker Compose**.
+2. Start **Nuclio** through Docker: `$ docker run -p 8070:8070 -v /var/run/docker.sock:/var/run/
+docker.sock -v /tmp:/tmp nuclio/dashboard:stable-amd64`
+then browse to [http://localhost:8070](http://localhost:8070) to use Nuclio Dashboard.
+3. Start **RabbitMQ** through Docker: `$ docker run -p 9000:15672  -p 1883:1883 -p 5672:5672  cyrilix/rabbitmq-mqtt`
+then browse to [http://localhost:9000](http://localhost:9000) and login using username:guest and password:guest, to access to RabbitMQ management, where is possible to visualize the message queues and the broker status.
+4. Replace all IP addresses in the code with your own, also in the `.yaml` files and in logger functions. Then updates the `functionSourceCode` field in all `.yaml` files with the base64 encoding of the functions.
+5. Browse to Nuclio Dashboard and create a new project uploading producer and consumers functions, then deploy all.
+6. Start all loggers with `node logger_name.js` in the terminal.
+7. Test the `planeProducer` function and observe messages on loggers.
+8. If you want, create your applets with **IFTTT** and update the fields in the code.
+
 
 
