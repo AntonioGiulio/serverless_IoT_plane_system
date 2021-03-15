@@ -1,4 +1,4 @@
-> # serverless_IoT plane-system
+> # serverless_IoT_plane-system
 ### Serverless Computing for IoT
 
 ## Introduction
@@ -16,7 +16,7 @@ This project focuses on the processing of these data on ground-control, it consi
 
 * Serverless computing provider <span style="color:darkorange">**Nuclio**</span>.
 
-* **MQTT **and **AMQP** message broker <span style="color:darkorange">**RabbitMQ**</span>.
+* **MQTT** and **AMQP** message broker <span style="color:darkorange">**RabbitMQ**</span>.
 
 * JavaScript Application runtime <span style="color:darkorange">**Node.js**</span>.
 
@@ -105,20 +105,48 @@ As we have previously seen we have 4 loggers, each associated with a consumer fu
 * **fuel_logger** listening on <span style="color:blue">`logs/arrivals/fuel`</span>
 	![](/media/fuel.png)
 * **issuel_logger** listening on <span style="color:blue">`logs/arrivals/issue`</span>
-	![](/issue.png)
+	![](/media/issue.png)
 * **tire_logger** listening on <span style="color:blue">`logs/arrivals/tire`</span>
 	![](/media/tire.png)
 
 ## IFTTT
-Once the system described above was implemented and tested, I decided to add a WebHook through the use of IFTTT.
+Once the system described above was implemented and tested, I decided to add a **WebHook** through the use of **IFTTT**.
 
-If This Then That (IFTTT) is a service that allows a user to program a response to events in the world of various kinds. The programs, called applets, are simple and created graphically.
+**<span style="color:darkorange">I</span>f <span style="color:darkorange">T</span>his <span style="color:darkorange">T</span>hen <span style="color:darkorange">T</span>hat (IFTTT)** is a service that allows a user to program a response to events in the world of various kinds. The programs, called **applets**, are simple and created graphically.
+
 IFTTT employs the following concepts:
 
-* Services are the basic building blocks of IFTTT. They describe a series of data from a certain web service. Each service has a particular set of triggers and actions.
-* Triggers are the “this” part of an applet. They are the items that trigger the action. In our case the incoming message on a MQTT topic.
-* Actions are the “that” part of an applet. They are the output that results from the input of the trigger.
+* **Services** are the basic building blocks of IFTTT. They describe a series of data from a certain web service. Each service has a particular set of triggers and actions.
+* **Triggers** are the “*this*” part of an applet. They are the items that trigger the action. In our case the incoming message on a MQTT topic.
+* **Actions** are the “*that*” part of an applet. They are the output that results from the input of the trigger.
 
 IFTTT manages a very wide range of services that can be involved in a causal relationship.
+
 For the Plane-system I created three applets using the following services offered by IFTTT:
+
+![](/media/webhooks.png) ![](/media/webdescr.png)
+
+![](/media/sheets.png) ![](/media/sheetsdescr.png)
+
+The first applet is called **plane_landed**.
+
+It is connected to **Message Dispatcher**, every time a plane lands, the applet is invoked and updates an excel file on my Google Drive which acts as a <span style="color:darkgreen">**Landing_Archive**</span>.
+
+![](/media/landings_archive.png)
+
+In the same way the other two applets (**plane_refuelig** and **plane_malfunction**) are connected one with **Fuel Consumer** function, and the other with **Issue Consumer** function, in order to create a <span style="color:darkgreen">**Refuelings_Archive**</span> and a <span style="color:darkgreen">**Malfunctions_Archive**</span>:
+
+![](/media/refueling_archive.png) 
+
+![](/media/malfunction_archive.png)
+
+To integrate these applet in my code I have exploited the **NPM** package **`ifttt-webhooks-channel`** (installable with `npm i ifttt-webhooks-channel`) that provide a simple post method to trigger the webhook as follow:
+```
+// invoke the webhook
+        ifttt.post('plane_landed', [currentPlane.model + " - " + currentPlane.name,
+                                     date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear(),
+                                      (date.getHours()+1) + ":" + date.getMinutes()]);
+```
+             
+
 
